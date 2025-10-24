@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Pay Approval Process</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Pay Approval Demo</h1>
+
+  <section class="card">
+    <h2>Submit Request (Employee)</h2>
+    <label>Employee ID <input id="empId" type="number" value="1" /></label>
+    <label>Amount <input id="amount" type="number" value="250" /></label>
+    <label>Reason <input id="reason" type="text" placeholder="Reason..." /></label>
+    <button onclick="submitRequest()">Submit</button>
+    <p id="submitMsg"></p>
+  </section>
+
+  <section class="card">
+    <h2>Manager Actions</h2>
+    <label>Manager ID <input id="mgrId" type="number" value="10" /></label>
+    <label>Request ID <input id="reqId" type="number" placeholder="Request ID..." /></label>
+    <label>Reject reason <input id="rejReason" type="text" placeholder="Optional"/></label>
+    <div class="row">
+      <button onclick="approve()">Approve</button>
+      <button onclick="reject()">Reject</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>All Requests</h2>
+    <button onclick="loadRequests()">Refresh</button>
+    <pre id="requests"></pre>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
