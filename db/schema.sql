@@ -1,0 +1,31 @@
+DROP TABLE IF EXISTS approvals;
+DROP TABLE IF EXISTS requests;
+DROP TABLE IF EXISTS employees;
+
+CREATE TABLE employees (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  role TEXT CHECK(role IN ('EMPLOYEE','MANAGER','ADMIN')) NOT NULL
+);
+
+CREATE TABLE requests (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  employee_id INTEGER NOT NULL,
+  amount NUMERIC NOT NULL,
+  reason TEXT,
+  status TEXT CHECK(status IN ('PENDING','APPROVED','REJECTED')) DEFAULT 'PENDING',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(employee_id) REFERENCES employees(id)
+);
+
+CREATE TABLE approvals (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  request_id INTEGER NOT NULL,
+  manager_id INTEGER NOT NULL,
+  action TEXT CHECK(action IN ('APPROVE','REJECT')) NOT NULL,
+  reason TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(request_id) REFERENCES requests(id),
+  FOREIGN KEY(manager_id) REFERENCES employees(id)
+);
